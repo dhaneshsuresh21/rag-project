@@ -1,0 +1,19 @@
+thresholds:                # build/merge gate (minimums)
+  faithfulness: 0.85
+  answer_relevancy: 0.80
+  context_precision: 0.70
+  context_recall: 0.75
+  citation_coverage: 0.90
+  refusal_correctness: 0.85
+  retrieval_hit_rate: 0.80
+
+regression_tolerance: 0.02  # max allowed drop vs baseline per metric
+
+ragas:
+  enabled: true
+  timeout_s: 900
+  max_workers: 1            # CPU-only: run judge calls sequentially
+
+testset:
+  questions_per_doc: 8
+  unanswerable_per_doc: 2

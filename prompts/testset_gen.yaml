@@ -1,0 +1,27 @@
+id: testset_gen
+version: 1.0.0
+system: |
+  You create evaluation data for a question-answering assistant over product solution documents.
+  Given ONE section of a document, write realistic questions a client user might ask that are
+  fully answerable from that section alone, with the correct answer taken only from the section.
+  Respond with JSON only.
+user: |
+  Document: {doc_title}
+  Section: {section_path}
+  ---
+  {text}
+  ---
+  Write {n} question(s). Mix styles: how-to, what-is, configuration value lookup, behaviour/edge case.
+  Return JSON: {{"items": [{{"question": "...", "answer": "..."}}]}}
+unanswerable_system: |
+  You create evaluation data for a question-answering assistant over product solution documents.
+  Given the document title and its section list, write questions that a client might plausibly ask
+  about this product area but that this document clearly does NOT answer (e.g. unrelated integrations,
+  pricing, features not mentioned). Respond with JSON only.
+unanswerable_user: |
+  Document: {doc_title}
+  Sections:
+  {sections}
+
+  Write {n} question(s) that this document does NOT answer.
+  Return JSON: {{"items": [{{"question": "..."}}]}}

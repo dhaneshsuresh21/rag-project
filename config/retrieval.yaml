@@ -1,0 +1,33 @@
+parsing:
+  # Feature/gap id detection in filename, title or first paragraphs (e.g. PRAC-234109)
+  feature_id_pattern: '(?<![A-Za-z0-9])(?:PRAC|GAP|FEAT|FEATURE|PRJ|PROJ)[-_ ]?\d+(?!\d)'
+  # "Client: ACME" style line on the title page (otherwise the doc is "general")
+  client_label_pattern: '^\s*(?:client|customer)\s*[:\-]\s*(.+)$'
+  # Fallback when the doc has no Word heading styles: "3.2 Refund limits" style lines
+  pseudo_heading_max_chars: 120
+  # PRA solution template specifics
+  title_styles: [Subtitle, Title]                 # first non-generic one wins
+  generic_titles: [Final Solution Template, PRA Final Solution Template]
+  title_prefix_pattern: '^\s*(?:solution|title)\s*[:\-]\s*'
+  ignore_headings: [PRA Final Solution Template, Contents]
+  front_matter_styles: [Version, Date Month Year, Title Date, Subtitle, Title]
+  skip_style_prefixes: [toc]                       # table of contents (toc 1..9, TOC Heading)
+  bold_subheadings: true                           # short bold lines under a heading become sub-headings
+
+chunking:
+  max_tokens: 800        # sections above this are split
+  target_tokens: 650     # soft target when splitting
+  overlap_tokens: 100    # overlap between split parts
+  min_tokens: 60         # tiny sections are merged into the next section
+  # sections whose whole body is one of these are dropped (empty template sections)
+  empty_markers: [na, n/a, n.a., none, nil, not applicable, "-", tbd, no impact, not required, no changes]
+
+retrieval:
+  bm25_top_k: 20
+  vector_top_k: 20
+  rrf_k: 60
+  fused_top_k: 10
+  rerank_top_n: 5
+  min_rerank_score: 0.02   # tau (sigmoid probability). Tune with eval.
+  neighbour_expansion: true
+  max_context_tokens: 2500

@@ -1,0 +1,46 @@
+ollama:
+  base_url: http://localhost:11434   # override with OLLAMA_BASE_URL
+
+llm:                                 # answer generation
+  model: phi4-mini                   # override with RAG_LLM_MODEL
+  temperature: 0
+  num_ctx: 8192                      # Ollama silently truncates prompts beyond this
+  num_predict: 400
+  num_thread: null                   # e.g. 6 = P-cores only on i7-1370P
+  keep_alive: 30m
+  timeout_s: 180
+
+rewrite_llm:                         # follow-up -> standalone question
+  model: phi4-mini
+  temperature: 0
+  num_ctx: 4096
+  num_predict: 64
+  num_thread: null
+  keep_alive: 30m
+  timeout_s: 60
+
+judge_llm:                           # RAGAS judge + test-set generation
+  model: phi4-mini                   # override with RAG_JUDGE_MODEL
+  temperature: 0
+  num_ctx: 8192
+  num_predict: 1024
+  num_thread: null
+  keep_alive: 30m
+  timeout_s: 600
+
+embeddings:
+  model: nomic-embed-text
+  doc_prefix: "search_document: "
+  query_prefix: "search_query: "
+  batch_size: 16
+
+reranker:
+  enabled: true
+  model: cross-encoder/ms-marco-MiniLM-L-6-v2
+  # Pinned Hugging Face commit (the snapshot in the local cache / baked into the Docker image)
+  revision: 233902d25c440f23af6f7d6e94d2946bac0bee0a
+  # true = never contact huggingface.co; load only from the local cache.
+  # On a fresh machine, set false once (or run the Dockerfile download step) to fetch this revision.
+  local_files_only: true
+  device: cpu
+  max_length: 512

@@ -1,0 +1,26 @@
+app:
+  name: Solution Docs Assistant
+  show_sources: true          # show "Based on: Doc > Section" lines (no file download)
+  history_turns: 6            # conversation turns used for follow-up rewriting
+  require_citations: true     # answers without any valid [Cx] citation are treated as NOT_IN_DOCS
+  max_generation_retries: 1   # one repair attempt when the answer fails validation
+  retention_days: 90          # chat logs + traces retention
+  not_in_docs_message: >-
+    I couldn't find this in the solution documents. Please rephrase your question
+    or contact your Customer Success team.
+  error_message: >-
+    The assistant is temporarily unavailable. Please try again in a moment.
+
+paths:                        # relative to project root
+  docs_dir: data/docs
+  storage_dir: storage
+  chroma_dir: storage/chroma
+  sqlite_path: storage/app.db
+  logs_dir: logs
+
+vector_store:
+  collection: solution_docs
+
+api:
+  host: 127.0.0.1
+  port: 8000

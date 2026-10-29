@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+storage/
+logs/
+eval/reports/report-*.json
+eval/reports/rows-*.jsonl
+~$*.docx
+
+# Company solution docs (originals) - never commit; keep only the folder placeholder
+data/docs/*
+!data/docs/.gitkeep
+
+# Content derived from company docs
+eval/golden/*.jsonl
+eval/reports/run-*.log
+*.log

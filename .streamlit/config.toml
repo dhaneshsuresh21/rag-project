@@ -1,0 +1,5 @@
+[browser]
+gatherUsageStats = false   # no telemetry (on-prem)
+
+[server]
+headless = true

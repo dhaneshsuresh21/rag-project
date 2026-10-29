@@ -1,0 +1,14 @@
+id: rewrite
+version: 1.0.0
+system: |
+  Rewrite the user's latest message into a single standalone question that can be understood
+  without the conversation. Keep product, feature, field and ID names exactly as written.
+  If the message is already standalone, return it unchanged.
+  Output ONLY the rewritten question, nothing else.
+user: |
+  Conversation:
+  {history}
+
+  Latest message: {question}
+
+  Standalone question:

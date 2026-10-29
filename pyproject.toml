@@ -1,0 +1,12 @@
+[project]
+name = "rag-solution-docs"
+version = "0.1.0"
+description = "On-prem RAG assistant over Word solution documents (Ollama + LangGraph + Chroma + BM25 + RAGAS)"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 120
